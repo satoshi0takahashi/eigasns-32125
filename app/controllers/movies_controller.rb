@@ -1,5 +1,8 @@
 class MoviesController < ApplicationController
+  before_action :authenticate_user!, only: [:new, :edit]
+  before_action :set_movie, only: [:edit, :show]
   def index
+    @movies = Movie.all.order('created_at DESC')
   end
 
   def new
@@ -16,14 +19,24 @@ class MoviesController < ApplicationController
   end
 
   def show
-    @movie = Movie.find(params[:id])
   end
 
   def edit
+  end
+
+  def update
     @movie = Movie.find(params[:id])
+    if @movie.update(movie_params)
+      redirect_to movie_path(@movie.id)
+    else
+      render :edit
+    end
   end
 
   private
+  def set_movie
+    @movie = Movie.find(params[:id])
+  end
 
   def movie_params
     params.require(:movie).permit(:name, :detail, :category_id, :release_date_id, :country_id, :image)
