@@ -37,7 +37,13 @@
         <div class="weight-bold-text">
           カテゴリー
           <span class="indispensable">必須</span>
+          <%# f.collection_select(:category_id, Category.all, :id, :name, {}, {class:"select-box", id:"item-category"}) %>
         </div>
+        <div class='input-expiration-date-wrap'>
+        <p>公開年</p>
+          <%= f.text_area :relese_date, class:"input-year", id:"year", placeholder:"例)2019 不明は空欄" %>
+        </div>
+
         <% end %>
 
 <%= render "shared/footer" %>
