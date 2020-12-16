@@ -1,0 +1,87 @@
+<%= render "shared/header" %>
+
+<%# 商品の概要 %>
+<div class="item-show">
+  <div class="item-box">
+    <h2 class="name">
+      <%= @movie.name %>
+    </h2>
+    <div class='item-img-content'>
+      <%= image_tag @movie.image ,class:"item-box-img" %>
+    </div>
+
+
+    <%= link_to '映画の編集', edit_movie_path(@movie.id), method: :get, class: "movie-red-btn" %>
+    <%= link_to '削除', movie_path(@movie.id), method: :delete, class:'movie-destroy' %>
+
+
+    <div class="item-explain-box">
+      <span><%= @movie.detail %></span>
+    </div>
+    <table class="detail-table">
+      <tbody>
+        <tr>
+          <th class="detail-item">カテゴリー</th>
+          <td class="detail-value"><%= @movie.category.name %></td>
+        </tr>
+        <tr>
+          <th class="detail-item">公開年</th>
+          <td class="detail-value"><%= @movie.release_date.name %></td>
+        </tr>
+        <tr>
+          <th class="detail-item">映画の種類</th>
+          <td class="detail-value"><%= @movie.country.name %></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="option">
+      <div class="favorite-btn">
+        <%= image_tag "star.png" ,class:"favorite-star-icon" ,width:"20",height:"20"%>
+        <span>お気に入り 0</span>
+      </div>
+      <div class="report-btn">
+        <%= image_tag "flag.png" ,class:"report-flag-icon" ,width:"20",height:"20"%>
+        <span>不適切な商品の通報</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="comment-box">
+      <p class="comment-warn">
+        相手のことを考え丁寧なコメントを心がけましょう。
+        <br>
+        不快な言葉遣いなどは利用制限や退会処分となることがあります。
+      </p>
+    <% if user_signed_in? %>
+      <%= form_with(model: [@item, @comment], local: true) do |form| %>
+        <%= form.text_area :text, placeholder: "コメントする", rows: "2", class: "comment-text" %>
+        <%= form.submit "コメントする", class: "comment-btn" %>
+      <% end %>
+    <% else %>
+      <strong><p>※※※ コメントの投稿には新規登録/ログインが必要です ※※※</p></strong>
+    <% end %>
+  </div>
+    <div class="comments">
+      <h4>＜コメント一覧＞</h4>
+      <% if @comments %>
+        <% @comments.each do |comment| %>
+          <p class="comment-square">
+            <strong><%= link_to comment.user.nickname, "/users/#{comment.user_id}" %>：</strong>
+            <%= comment.text %>
+            <%= comment.created_at.strftime('%Y/%m/%d %H:%M:%S') %>
+          </p>
+        <% end %>
+      <% end %>
+    </div>
+  <div class="links">
+    <a href="#" class="change-item-btn">
+      ＜ 前の商品
+    </a>
+    <a href="#" class="change-item-btn">
+      後ろの商品 ＞
+    </a>
+  </div>
+  <a href="#" class='another-item'><%= @item.category.name %>をもっと見る</a>
+</div>
+
+<%= render "shared/footer" %>
