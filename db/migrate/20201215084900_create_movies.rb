@@ -4,8 +4,8 @@ class CreateMovies < ActiveRecord::Migration[6.0]
       t.string :name, null: false
       t.text :detail, null: false
       t.integer :category_id, null: false
-      t.date :release_date, null: false
-      t.boolean :like
+      t.date :release_date
+      t.integer :like
       t.timestamps
     end
   end
