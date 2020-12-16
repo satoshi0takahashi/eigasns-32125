@@ -13,3 +13,13 @@
  *= require_tree .
  *= require_self
  */
+
+ .movie-box-img {
+  max-width: 300px;
+  max-height: 200px;
+}
+
+.movie-img {
+  max-width: 300px;
+  max-height: 200px;
+}

@@ -3,7 +3,23 @@
 <%= link_to "映画を投稿する", new_movie_path, class: "movie-post" %>
 
 
+     <% @movies.last(5).each do |movie| %>
+      <li class='list'>
+        <%= link_to movie_path(movie.id) do %>
+        <div class='movie-img-content'>
+        <% if movie.image.present? %>
+          <%= image_tag movie.image, class: "movie-img" %>
+<% end %>
 
+        </div>
+        <div class='item-info'>
+          <h3 class='item-name'>
+            <%= movie.name %>
+          </h3>
+        </div>
+        <% end %>
+      </li>
+                          <% end %>
 <%# image_tag movie.image, class: 'movie-image' if movie.image.attached? %>
 
 <%= render "shared/footer" %>
