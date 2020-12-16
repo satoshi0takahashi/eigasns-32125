@@ -25,8 +25,9 @@
 |name     |string    |Null: false|
 |detail|text      |Null: false|
 |category_id   |integer      |Null: false|
-|release_date   |date      |Null: false|
-|like      |boolean ||
+|release_date_id   |integer      ||
+|like      |integer ||
+|country_id      |integer ||
 
 ## Association
 - belongs_to :user
