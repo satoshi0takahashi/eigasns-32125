@@ -7,6 +7,7 @@ class MoviesController < ApplicationController
   end
 
   def create
+    binding.pry
     @movie = Movie.new(movie_params)
     if @movie.save
       redirect_to root_path
@@ -18,6 +19,6 @@ class MoviesController < ApplicationController
   private
 
   def movie_params
-    params.require(:movie).permit(:name, :detail, :category_id, :relese_date, :like, :image)
+    params.require(:movie).permit(:name, :detail, :category_id, :release_date_id, :country_id, :image)
   end
 end
