@@ -52,8 +52,12 @@
 
 |Column    |Type      |Options|
 |----------|----------| ---------|
-|name     |string    |Null: false|
-|thought      |Null: false|
+|user     |string    |Null: false|
+|title     |string    ||
+|content     |string    ||
+|point  |integer    ||Null: false|
+|spoiler     |boolean    |Null: false|
+
 
 
 ## Association
