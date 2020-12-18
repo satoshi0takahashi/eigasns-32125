@@ -1,4 +1,3 @@
-
 FactoryBot.define do
   factory :movie do
     name { Faker::Name.initials(number: 2) }

@@ -19,6 +19,9 @@ class MoviesController < ApplicationController
   end
 
   def show
+    @count = Evaluation.count
+    @point = Evaluation.sum(:point)
+    @points = (@point / @count).floor(2)
   end
 
   def edit
@@ -34,6 +37,7 @@ class MoviesController < ApplicationController
   end
 
   private
+
   def set_movie
     @movie = Movie.find(params[:id])
   end
