@@ -10,12 +10,10 @@
 
 
 ## Association
-
-- has_many :movies
-- has_many :comments
 - has_many :comments
 - has_one :tweet
 - has_one :follows
+- has_one :evaluation
 
 
 # Movie
@@ -28,10 +26,11 @@
 |release_date_id   |integer      ||
 |like      |integer ||
 |country_id      |integer ||
+|evaluation     |references   |foreign key:true|
 
 ## Association
 - belongs_to :user
-- has_one :Evaluations
+- has_one :evaluations
 - has_one :comments
 - has_one :favorites
 - has_one :trivia
@@ -52,7 +51,8 @@
 
 |Column    |Type      |Options|
 |----------|----------| ---------|
-|user     |string    |Null: false|
+|user     |references   |foreign key:true|
+|movie     |references   |foreign key:true|
 |title     |string    ||
 |content     |string    ||
 |point  |integer    ||Null: false|
@@ -62,7 +62,7 @@
 
 ## Association
 - belongs_to :user
-- belongs_to  :movie
+- belongs_to :movie
 
 
 # Favorite

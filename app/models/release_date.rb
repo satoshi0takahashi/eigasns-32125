@@ -40,7 +40,7 @@ class ReleaseDate < ActiveHash::Base
     { id: 113, name: '2011' }, { id: 114, name: '2012' }, { id: 115, name: '2013' },
     { id: 116, name: '2014' }, { id: 117, name: '2015' }, { id: 118, name: '2016' },
     { id: 119, name: '2017' }, { id: 120, name: '2018' }, { id: 121, name: '2019' },
-    { id: 122, name: '2020' }, { id: 123, name: '2021' },
+    { id: 122, name: '2020' }, { id: 123, name: '2021' }
   ]
 
   include ActiveHash::Associations
