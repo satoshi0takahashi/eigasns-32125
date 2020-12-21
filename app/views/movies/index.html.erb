@@ -2,6 +2,16 @@
 <%# link_to "映画を検索する", url: search_movies_path, class: "movie-search" %>
 <%= link_to "映画を投稿する", new_movie_path, class: "movie-post" %>
 
+<div class="contents row">つぶやき:
+  <% @tweets.present? %><% @tweets.each do |tweet| %>
+    <div class="content_post" style="background-image: url(<%= tweet.image %>);">
+      <p><%= tweet.text %></p>
+      <span class="name">
+        <%= tweet.name %>
+      </span>
+    </div>
+  <% end %><% end %>
+</div>
 
      <% @movies.last(5).each do |movie| %>
       <li class='list'>
