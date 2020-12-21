@@ -12,4 +12,12 @@ class Movie < ApplicationRecord
   belongs_to_active_hash :category
   belongs_to_active_hash :release_date
   belongs_to_active_hash :country
+
+  def self.search(search)
+    if search != ""
+      Movie.where('name LIKE(?)', "%#{search}%")
+    else
+      Movie.all
+    end
+  end
 end

@@ -1,0 +1,24 @@
+<%= render "shared/header" %>
+
+<div class="contents row">
+<li class='list'>検索結果
+  <% @movies.each do |movie| %>
+    <%# render partial: "movie", locals: { movie: movie } %>
+      <% @movies.each do |movie| %>
+        <%= link_to movie_path(movie.id) do %>
+        <div class='movie-img-content'>
+        <% if movie.image.present? %>
+          <%= image_tag movie.image, class: "movie-img" %>
+<% end %>
+
+        </div>
+        <div class='item-info'>
+          <h3 class='item-name'>
+            <%= movie.name %>
+          </h3>
+        </div>
+        <% end %>
+      </li>
+                          <% end %>
+  <% end %>
+</div>

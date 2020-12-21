@@ -38,6 +38,10 @@ class MoviesController < ApplicationController
     end
   end
 
+  def search
+    @movies = Movie.search(params[:keyword])
+  end
+
   private
 
   def set_movie

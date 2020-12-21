@@ -31,8 +31,8 @@
   </div>
 </div>
 
-     <% @movies.last(5).each do |movie| %>
       <li class='list'>最近投稿された映画
+      <% @movies.last(5).each do |movie| %>
         <%= link_to movie_path(movie.id) do %>
         <div class='movie-img-content'>
         <% if movie.image.present? %>
