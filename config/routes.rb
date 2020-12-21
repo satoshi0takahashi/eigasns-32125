@@ -4,5 +4,5 @@ Rails.application.routes.draw do
   resources :movies, only: [:index, :new, :create, :show, :edit, :update] do 
     resources :evaluations, only: [:new, :show, :create, :update]
   end
-  resources :tweets, only: [:new, :create, :edit, :destroy]
+  resources :tweets, only: [:index, :new, :create, :edit, :destroy]
 end
