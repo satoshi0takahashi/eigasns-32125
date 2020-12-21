@@ -3,6 +3,8 @@ class MoviesController < ApplicationController
   before_action :set_movie, only: [:edit, :show]
   def index
     @movies = Movie.all.order('created_at DESC')
+    @tweet = Tweet.new
+    @tweets = Tweet.all.order('created_at DESC')
   end
 
   def new

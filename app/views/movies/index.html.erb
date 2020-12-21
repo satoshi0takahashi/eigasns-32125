@@ -2,9 +2,37 @@
 <%# link_to "映画を検索する", url: search_movies_path, class: "movie-search" %>
 <%= link_to "映画を投稿する", new_movie_path, class: "movie-post" %>
 
+<div class="contents row">つぶやき 
+  <% if @tweets.present? %><% @tweets.last(5).each do |tweet| %>
+    <div class="content_post">
+      <p><%= tweet.content %> <%= tweet.user.nickname %> <%= tweet.created_at %></p>
+
+        <ul class="more_list">
+        <li>
+          <%= link_to '編集', edit_tweet_path(tweet.id), method: :get %>
+        </li>
+        <li>
+          <%= link_to '削除', tweet_path(tweet.id), method: :delete %>
+        </li>
+        </ul>
+      </div>
+      </span>
+    </div>
+  <% end %><% end %>
+</div>
+
+<div class="contents row">
+  <div class="container">
+    <h3>つぶやく</h3>
+    <%= form_with model: @tweet, url: tweets_path(@tweet.id), local: true do |form| %>
+      <%= form.text_area :content, placeholder: "text", rows: "10" %>
+      <%= form.submit "SEND" %>
+    <% end %>
+  </div>
+</div>
 
      <% @movies.last(5).each do |movie| %>
-      <li class='list'>
+      <li class='list'>最近投稿された映画
         <%= link_to movie_path(movie.id) do %>
         <div class='movie-img-content'>
         <% if movie.image.present? %>
