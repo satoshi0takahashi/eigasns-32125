@@ -7,4 +7,6 @@ class User < ApplicationRecord
 
   has_many :evaluations
   has_many :tweet
+  has_many :favorites, dependent: :destroy
+  has_many :movie, through: :favorite
 end

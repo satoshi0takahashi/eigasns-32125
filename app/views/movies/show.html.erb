@@ -86,43 +86,20 @@
         </tr>
       </tbody>
     </table>
+    <% if !Favorite.exists? %>
+    <%= link_to "お気に入り", movie_favorites_path(@movie.id),method: :post %>
+    <% else %>
+    <%= link_to "お気に入り解除", movie_favorites_path(@movie.id),method: :delete %>
+    <% end %>
+
+
     <div class="option">
       <div class="favorite-btn">
-        <%= image_tag "star.png" ,class:"favorite-star-icon" ,width:"20",height:"20"%>
-        <span>お気に入り 0</span>
+        <%# image_tag "star.png" ,class:"favorite-star-icon" ,width:"20",height:"20"%>
       </div>
 
     </div>
   </div>
-
-
-  <div class="comment-box">
-      <p class="comment-warn">
-        相手のことを考え丁寧なコメントを心がけましょう。
-        <br>
-        不快な言葉遣いなどは利用制限や退会処分となることがあります。
-      </p>
-    <%# if user_signed_in? %>
-      <%# form_with(model: [@movie, @comment], local: true) do |form| %>
-        <%# form.text_area :text, placeholder: "コメントする", rows: "2", class: "comment-text" %>
-        <%# form.submit "コメントする", class: "comment-btn" %>
-      <%# end %>
-    <%# else %>
-      <strong><p>※※※ コメントの投稿には新規登録/ログインが必要です ※※※</p></strong>
-    <%# end %>
-  </div>
-    <div class="comments">
-      <h4>＜コメント一覧＞</h4>
-      <% if @comments %>
-        <% @comments.each do |comment| %>
-          <p class="comment-square">
-            <strong><%= link_to comment.user.nickname, "/users/#{comment.user_id}" %>：</strong>
-            <%= comment.text %>
-            <%= comment.created_at.strftime('%Y/%m/%d %H:%M:%S') %>
-          </p>
-        <% end %>
-      <% end %>
-    </div>
 
   <a href="#" class='another-item'><%= @movie.category.name %>をもっと見る</a>
 </div>
