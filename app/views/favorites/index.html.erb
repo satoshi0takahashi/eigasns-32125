@@ -1,0 +1,24 @@
+<%= render "shared/header" %>
+
+<% if @favorite.present? %>
+<div>お気に入り一覧</div>
+<% @favorite.each  do |f| %>
+       <%= link_to movie_path(f.movie_id) do %>
+        <div class='movie-img-content'>
+        <% if f.movie.image.present? %>
+          <%= image_tag f.movie.image, class: "movie-img" %>
+        <% end %>
+        </div>
+        <div class='item-info'>
+          <h3 class='item-name'>
+            <%= f.movie.name %>
+          </h3>
+        </div>
+        <% end %>
+      </li>
+<% end %>
+<% else %>
+<div>お気に入りがありません。</div>
+<% end %>
+
+<%= render "shared/footer" %>
