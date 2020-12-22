@@ -1,0 +1,4 @@
+<%= form_with model: @user do |form| %>
+  <div>username<%= form.text_field :username %></div>
+  <div><%= form.submit "保存" %></div>
+<% end %>

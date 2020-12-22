@@ -12,7 +12,7 @@
     <ul class='lists-right'>
       <%# deviseを導入できたら、ログインの有無で表示が変わるように分岐しましょう%>
       <% if user_signed_in? %>
-      <li><%= link_to current_user.nickname, "/users/#{current_user.id}", class: "user-nickname" %></li>
+      <li><%= link_to current_user.nickname, mypage_path(current_user.id), class: "user-nickname" %></li>
       <li><%= link_to 'ログアウト', destroy_user_session_path, method: :delete, class: "logout" %></li>
       <li><%= link_to 'お気に入り一覧', movie_favorites_path(current_user.id), method: :get, class: "logout" %></li>
       <% else %>

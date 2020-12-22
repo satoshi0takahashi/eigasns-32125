@@ -4,7 +4,7 @@ class MoviesController < ApplicationController
   def index
     @movies = Movie.all.order('created_at DESC')
     @tweet = Tweet.new
-    @tweets = Tweet.all.order('created_at DESC')
+    @tweets = Tweet.where(user_id: current_user.id).order('created_at DESC')
   end
 
   def new

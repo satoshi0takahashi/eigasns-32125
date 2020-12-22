@@ -10,22 +10,21 @@ class User < ApplicationRecord
   has_many :favorites, dependent: :destroy
   has_many :movie, through: :favorite
 
-  has_many :relationships, foreign_key: 'user_id', dependent: :destroy
-  has_many :followings, through: :relationships, source: :follow
-  has_many :reverse_of_relationships, class_name: 'Relationship', foreign_key: 'follow_id', dependent: :destroy
-  has_many :followers, through: :reverse_of_relationships, source: :user
-  def follow(other_user)
-    unless self == other_user
-      self.relationships.find_or_create_by(follow_id: other_user.id)
-    end
+  has_many :follower, class_name: "Relationship", foreign_key: "follower_id", dependent: :destroy # フォロー取得
+  has_many :followed, class_name: "Relationship", foreign_key: "followed_id", dependent: :destroy # フォロワー取得
+  has_many :following_user, through: :follower, source: :followed # 自分がフォローしている人
+  has_many :follower_user, through: :followed, source: :follower # 自分をフォローしている人
+  def follow(user_id)
+    follower.create(followed_id: user_id)
   end
-
-  def unfollow(other_user)
-    relationship = self.relationships.find_by(follow_id: other_user.id)
-    relationship.destroy if relationship
+  
+  # ユーザーのフォローを外す
+  def unfollow(user_id)
+    follower.find_by(followed_id: user_id).destroy
   end
-
-  def following?(other_user)
-    self.followings.include?(other_user)
+  
+  # フォローしていればtrueを返す
+  def following?(user)
+    following_user.include?(user)
   end
 end
