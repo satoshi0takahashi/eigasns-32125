@@ -1,2 +1,0 @@
-class DmUser < ApplicationRecord
-end

@@ -4,7 +4,6 @@ Rails.application.routes.draw do
   resources :movies, only: [:index, :new, :create, :show, :edit, :update] do 
     resources :evaluations, only: [:new, :show, :create, :update, :destroy]
     resources :favorites, only: [:create, :destroy, :index]
-    resources :rooms, only: [:new, :create]
     collection do
       get 'search'
     end
@@ -13,6 +12,8 @@ Rails.application.routes.draw do
   resources :tweets, only: [:index, :new, :create, :edit, :destroy]
   resources :relationships, only: [:create, :destroy]
   resources :users, only: [:show, :edit, :update]
+  resources :messages, only: :create
+  resources :rooms, only: [:create, :show, :index]
   get '/mypage' => 'users#mypage'
   post 'follow/:id' => 'relationships#follow', as: 'follow' # フォローする
   post 'unfollow/:id' => 'relationships#unfollow', as: 'unfollow' # フォロー外す
