@@ -73,3 +73,19 @@
     </div>
   <% end %><% end %>
 </div>
+
+
+  <div class="contents row">
+  <% if @evaluations.present? %>過去の評価
+      <% @evaluations.each do |evaluation| %>
+        <%= link_to url: "/movies/#{evaluation.movie.id}/evaluations/#{evaluation.id}" do %>
+        映画名： <%= evaluation.movie.name %>
+        <% if evaluation.spoiler.present? %>
+        <div class="spoiler">※ネタバレ注意⚠︎ </div>
+        <% end %>
+        <% if evaluation.title.present? %>
+        <%= evaluation.title %> 評価点:<%= evaluation.point %>点
+        <% end %>
+        <%= link_to evaluation.user.nickname, user_path(evaluation.user.id), class: "user-nickname" %>
+      <% end %><% end %><% end %>
+</div>

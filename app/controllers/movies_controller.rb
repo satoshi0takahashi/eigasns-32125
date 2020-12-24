@@ -4,9 +4,19 @@ class MoviesController < ApplicationController
   def index
     @movies = Movie.all.order('created_at DESC')
     @tweet = Tweet.new
-    if user_signed_in?
-    @tweets = Tweet.where(user_id: current_user.id).order('created_at DESC')
+    @evaluations = Evaluation.all.order('created_at DESC').first(5)
+
+    if user_signed_in? && current_user.tweet.present?
+      @tweets = Tweet.where(user_id: current_user.id).order('created_at DESC')
     end
+
+    if user_signed_in? && current_user.follower.present?
+    @relation = Relationship.find_by(follower_id: current_user.id)
+    @tweets = Tweet.where(user_id: [current_user.id, @relation.followed_id]).order('created_at DESC')
+    
+    end
+
+
   end
 
   def new

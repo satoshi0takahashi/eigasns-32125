@@ -4,6 +4,7 @@ before_action :authenticate_user!, only: [:mypage, :edit, :update]
 
 def show
   @tweets = Tweet.where(user_id: params[:id]).order('created_at DESC')
+  @evaluations = Evaluation.where(user_id: params[:id]).order('created_at DESC')
   @user = User.find(params[:id])
   @currentUserEntry = Entry.where(user_id: current_user.id)
   @userEntry = Entry.where(user_id: @user.id)
