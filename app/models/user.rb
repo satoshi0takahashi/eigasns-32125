@@ -9,6 +9,8 @@ class User < ApplicationRecord
   has_many :tweet
   has_many :favorites, dependent: :destroy
   has_many :movie, through: :favorite
+  has_many :messages, dependent: :destroy
+  has_many :entries, dependent: :destroy
 
   has_many :follower, class_name: "Relationship", foreign_key: "follower_id", dependent: :destroy # フォロー取得
   has_many :followed, class_name: "Relationship", foreign_key: "followed_id", dependent: :destroy # フォロワー取得
