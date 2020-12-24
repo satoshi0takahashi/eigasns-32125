@@ -4,7 +4,9 @@
       <%= @movie.name %>
     </h2>
     <div class='item-img-content'>
-      <%= image_tag @movie.image ,class:"movie-box-img" %>平均点 <% if @evaluations.present? %><%= @points %>
+      <%= image_tag @movie.image ,class:"movie-box-img" %>
+      <% if @evaluations.present? %>
+      平均点: <%= @points %><% else %>まだ評価されていません。最初の評価を投稿しよう!<% end %>
       <% @evaluations.each do |evaluation| %>
         <%= link_to url: "/movies/#{@movie.id}/evaluations/#{evaluation.id}" do %>
         みんなの評価：
@@ -15,7 +17,6 @@
         <%= evaluation.title %> 評価点:<%= evaluation.point %>点
         <% end %>
         <%= link_to evaluation.user.nickname, user_path(evaluation.user.id), class: "user-nickname" %>
-      <% end %>
       <% end %>
       <% end %>
       <% if user_signed_in? && @eva.present? %>

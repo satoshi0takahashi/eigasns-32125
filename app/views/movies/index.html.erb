@@ -3,17 +3,18 @@
 <%= link_to "映画を投稿する", new_movie_path, class: "movie-post" %>
 
 <div class="contents row">つぶやき 
-  <% if @tweets.present? %><% @tweets.last(5).each do |tweet| %>
+  <% if @tweets.present? %><% @tweets.first(5).each do |tweet| %>
     <div class="content_post">
       <p><%= tweet.content %> <%= tweet.user.nickname %> <%= tweet.created_at %></p>
 
         <ul class="more_list">
+        <% if current_user.id == tweet.user_id %>
         <li>
           <%= link_to '編集', edit_tweet_path(tweet.id), method: :get %>
         </li>
         <li>
           <%= link_to '削除', tweet_path(tweet.id), method: :delete %>
-        </li>
+        </li><% end %>
         </ul>
       </div>
       </span>
@@ -26,14 +27,14 @@
     <h3>つぶやく</h3>
     <%= form_with model: @tweet, url: tweets_path(@tweet.id), local: true do |form| %>
     <%= render 'shared/error_messages', model: form.object %>
-      <%= form.text_area :content, placeholder: "text", rows: "3" %>
+      <%= form.text_area :content, placeholder: "text", rows: "2" %>
       <%= form.submit "SEND" %>
     <% end %>
   </div>
 </div>
 
       <li class='list'>最近投稿された映画
-      <% @movies.last(5).each do |movie| %>
+      <% @movies.first(5).each do |movie| %>
         <%= link_to movie_path(movie.id) do %>
         <div class='movie-img-content'>
         <% if movie.image.present? %>
@@ -43,10 +44,24 @@
         </div>
         <div class='item-info'>
           <h3 class='item-name'>
-            <%= movie.name %>
+            <%= movie.name %><% end %> <%= movie.category.name %> <%= movie.country.name %>
           </h3>
         </div>
-        <% end %>
       </li>
                           <% end %>
-<%# image_tag movie.image, class: 'movie-image' if movie.image.attached? %>
+
+
+      <% if @evaluations.present? %>
+      <li class='list'>最近投稿された評価
+      <% @evaluations.each do |evaluation| %>
+        <%= link_to url: "/movies/#{evaluation.movie_id}/evaluations/#{evaluation.id}" do %>
+        <% if evaluation.spoiler.present? %>
+        <%= evaluation.movie.name %> <div class="spoiler">※ネタバレ注意⚠︎ </div>
+        <% end %>
+        <% if evaluation.title.present? %>
+        <%= evaluation.title %> 評価点:<%= evaluation.point %>点
+        <% end %>
+        <%= link_to evaluation.user.nickname, user_path(evaluation.user.id), class: "user-nickname" %>
+      <% end %>
+      <% end %>
+      <% end %>
