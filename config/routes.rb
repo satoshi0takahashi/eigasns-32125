@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   resources :movies, only: [:index, :new, :create, :show, :edit, :update] do 
     resources :evaluations, only: [:new, :show, :create, :update, :destroy]
     resources :favorites, only: [:create, :destroy, :index]
+    resources :rooms, only: [:new, :create]
     collection do
       get 'search'
     end
