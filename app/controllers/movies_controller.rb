@@ -4,7 +4,9 @@ class MoviesController < ApplicationController
   def index
     @movies = Movie.all.order('created_at DESC')
     @tweet = Tweet.new
+    if user_signed_in?
     @tweets = Tweet.where(user_id: current_user.id).order('created_at DESC')
+    end
   end
 
   def new
@@ -21,9 +23,14 @@ class MoviesController < ApplicationController
   end
 
   def show
-    @count = Evaluation.count
-    @point = Evaluation.sum(:point)
+    @evaluation = Evaluation.new(evaluation_params)
+    @evaluations = Evaluation.where(movie_id: params[:id])
+    @eva = @evaluations.find_by(user_id: current_user.id)
+    @count = @evaluations.count
+    @point = @evaluations.sum(:point)
+    if @point != 0
     @points = (@point / @count).floor(2)
+    end
   end
 
   def edit
@@ -50,5 +57,9 @@ class MoviesController < ApplicationController
 
   def movie_params
     params.require(:movie).permit(:name, :detail, :category_id, :release_date_id, :country_id, :image)
+  end
+
+  def evaluation_params
+    params.permit(:title, :content, :point, :spoiler).merge(user_id: current_user.id, movie_id: params[:movie_id])
   end
 end

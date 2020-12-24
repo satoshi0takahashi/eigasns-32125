@@ -1,8 +1,5 @@
-<%= render "shared/header" %>
-
 <div class="contents row">
 <li class='list'>検索結果
-  <% @movies.each do |movie| %>
     <%# render partial: "movie", locals: { movie: movie } %>
       <% @movies.each do |movie| %>
         <%= link_to movie_path(movie.id) do %>
@@ -19,6 +16,5 @@
         </div>
         <% end %>
       </li>
-                          <% end %>
   <% end %>
 </div>

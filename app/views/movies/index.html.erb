@@ -1,4 +1,4 @@
-<%= render "shared/header" %>
+
 <%# link_to "映画を検索する", url: search_movies_path, class: "movie-search" %>
 <%= link_to "映画を投稿する", new_movie_path, class: "movie-post" %>
 
@@ -25,7 +25,8 @@
   <div class="container">
     <h3>つぶやく</h3>
     <%= form_with model: @tweet, url: tweets_path(@tweet.id), local: true do |form| %>
-      <%= form.text_area :content, placeholder: "text", rows: "10" %>
+    <%= render 'shared/error_messages', model: form.object %>
+      <%= form.text_area :content, placeholder: "text", rows: "3" %>
       <%= form.submit "SEND" %>
     <% end %>
   </div>
@@ -49,5 +50,3 @@
       </li>
                           <% end %>
 <%# image_tag movie.image, class: 'movie-image' if movie.image.attached? %>
-
-<%= render "shared/footer" %>

@@ -8,21 +8,30 @@ class EvaluationsController < ApplicationController
     @evaluation = Evaluation.new(evaluation_params)
     if @evaluation.valid?
       @evaluation.save
-      redirect_to movie_path(@evaluation.movie_id)
+      redirect_to movie_path(@movie.id)
     else
-      render movie_path(@evaluation.movie_id)
+      render :show
     end
   end
 
   def update
-    @movie = Movie.find(params[:movie_id])
+    @movie = Movie.find_by(id: params[:movie_id])
     @evaluation = Evaluation.find(params[:id])
-    if @evaluation.valid?
-      @evaluation.update
-      redirect_to movie_path(@evaluation.movie_id)
+    if @evaluation.update(evaluation_params)
+      redirect_to movie_path(@movie.id)
     else
-      render movie_path(@evaluation.movie_id)
+      render movie_path(@movie.id), formats: :html
     end
+  end
+
+  def show
+    @evaluation = Evaluation.find(params[:id])
+  end
+
+  def destroy
+    @eva = Evaluation.find(params[:id])
+    @eva.destroy
+    redirect_to root_path
   end
 
   private

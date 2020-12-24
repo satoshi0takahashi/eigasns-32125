@@ -1,15 +1,35 @@
-<%= render "shared/header" %>
-
-<%# 商品の概要 %>
 <div class="item-show">
   <div class="item-box">
     <h2 class="name">
       <%= @movie.name %>
     </h2>
     <div class='item-img-content'>
-      <%= image_tag @movie.image ,class:"movie-box-img" %>評価 <% if Evaluation.present? %><%= @points %><% end %>
-      評価する<% if user_signed_in? && @evaluation.present? %>
-      <%= form_with url: movie_evaluations_path(@evaluation.movie_id), method: :patch, local: true do |f| %>
+      <%= image_tag @movie.image ,class:"movie-box-img" %>平均点 <% if @evaluations.present? %><%= @points %>
+      <% @evaluations.each do |evaluation| %>
+        <%= link_to url: "/movies/#{@movie.id}/evaluations/#{evaluation.id}" do %>
+        <% if evaluation.spoiler.present? %>
+        <div class="spoiler">※ネタバレ注意⚠︎ </div>
+        <% end %>
+        <% if evaluation.title.present? %>
+        <%= evaluation.title %> 評価点:<%= evaluation.point %>点
+        <% end %>
+      <% end %>
+      <% end %>
+      <% end %>
+      <% if user_signed_in? && @eva.present? %>
+      <div>自分の過去評価</div>
+        <%= link_to url: "/movies/#{@movie.id}/evaluations/#{@eva.id}" do %>
+        <% if @eva.spoiler.present? %>
+        <div class="spoiler">※ネタバレ注意⚠︎ </div>
+        <% end %>
+        <% if @eva.title.present? %>
+        <%= @eva.title %> 評価点:<%= @eva.point %>点
+        <% end %>
+      <% end %>
+
+      <div>評価し直す</div>
+      <%= form_with model: @eva, url: "/movies/#{@movie.id}/evaluations/#{@eva.id}", method: :patch, local: true do |f| %>
+        <%= render 'shared/error_messages', model: f.object %>
             <div class="items-explain">点数:100点満点<span class="indispensable">必須</span>
             </div>
             <%= f.text_area :point, class:"point", id:"point", placeholder:"例）100", rows:"1", maxlength:"3" %>
@@ -17,7 +37,7 @@
             <div class="form">
             <div class="items-explain"><span class="indispensable">※以下任意項目 題名</span>
             </div>
-            <%= f.text_area :title, class:"title", id:"title", placeholder:"例）100" %>
+            <%= f.text_area :title, class:"title", id:"title", placeholder:"例）風と共に去りぬ", rows:"1" %>
         </div>
             <div class="form">
             <div class="items-explain"><span class="indispensable">ネタバレ(有の場合 チェック)</span>
@@ -26,13 +46,15 @@
         </div>
             <div class="form">
             <div class="items-explain"><span class="indispensable">評価内容</span>
-            </div>
+            </div>_
             <%= f.text_area :content, class:"content", id:"content", placeholder:"例）面白い！ 500文字以内" ,rows:"7", maxlength:"500" %>
         </div>
         <%= f.submit "投稿する" %>
         <% end %>
       <% elsif user_signed_in? %>
-            <%= form_with url: movie_evaluations_path(@movie.id), method: :create, local: true do |f| %>
+      <div>評価する</div>
+            <%= form_with model: @evaluation, url: movie_evaluations_path(@movie.id, @evaluation.id), method: :create, local: true do |f| %>
+            <%= render 'shared/error_messages', model: f.object %>
             <div class="items-explain">点数:100点満点<span class="indispensable">必須</span>
             </div>
             <%= f.text_area :point, class:"point", id:"point", placeholder:"例）100", rows:"1", maxlength:"3" %>
@@ -40,7 +62,7 @@
             <div class="form">
             <div class="items-explain"><span class="indispensable">※以下任意項目 題名</span>
             </div>
-            <%= f.text_area :title, class:"title", id:"title", placeholder:"例）100", rows:"7" %>
+            <%= f.text_area :title, class:"title", id:"title", placeholder:"例）風と共に去りぬ", rows:"1" %>
         </div>
             <div class="form">
             <div class="items-explain"><span class="indispensable">ネタバレ(有の場合 チェック)</span>
@@ -60,7 +82,6 @@
 
 
     <%= link_to '映画の編集', edit_movie_path(@movie.id), method: :get, class: "movie-red-btn" %>
-    <%# link_to '映画削除依頼', movie_path(@movie.id) %>
 
 
     <div class="item-explain-box">
@@ -92,16 +113,8 @@
     <%= link_to "お気に入り解除", movie_favorites_path(@movie.id),method: :delete %>
     <% end %>
 
-
-    <div class="option">
-      <div class="favorite-btn">
-        <%# image_tag "star.png" ,class:"favorite-star-icon" ,width:"20",height:"20"%>
-      </div>
-
     </div>
   </div>
 
   <a href="#" class='another-item'><%= @movie.category.name %>をもっと見る</a>
 </div>
-
-<%= render "shared/footer" %>

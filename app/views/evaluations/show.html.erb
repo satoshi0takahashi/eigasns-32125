@@ -1,0 +1,10 @@
+      <div>自分の評価</div>
+        <% if @evaluation.spoiler.present? %>
+        <div class="spoiler">※ネタバレ注意⚠︎ </div>
+        <% end %>
+        <% if @evaluation.title.present? %>
+        <%= @evaluation.title %> 評価点:<%= @evaluation.point %>点
+        <% end %>
+        <% if @evaluation.content.present? %>
+        <%= @evaluation.content %>
+        <% end %>
