@@ -39,7 +39,7 @@
         </div>
         <div class="weight-bold-text">
           カテゴリー
-          <span class="indispensable">必須</span>
+          <span class="indispensable">必須</span><br>
           <%= f.collection_select(:category_id, Category.all, :id, :name, {}, {class:"select-box", id:"movie-category"}) %>
         </div>
         <div class='input-expiration-date-wrap'>
