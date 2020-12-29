@@ -9,7 +9,7 @@
 
         <ul class="more_list">
         <% if current_user.id == tweet.user_id %>
-        <li>
+        <li class="list">
           <%= link_to '編集', edit_tweet_path(tweet.id), method: :get, class:"edit" %>
         </li>
         <li>
