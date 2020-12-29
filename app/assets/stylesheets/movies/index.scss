@@ -1,0 +1,31 @@
+a {
+  text-decoration: none;
+}
+
+.main {
+  background: #f8f8f8;
+}
+/* 商品一覧 */
+
+.item-contents {
+  background-color: #FFF;
+  display: flex;
+  align-items: center;
+  padding: 10vh 0;
+}
+
+.lists {
+  width: 100vw;
+}
+
+
+.movie-img-content {
+  position: relative;
+  justify-content: space-around;
+}
+
+.item-img {
+  width: 33vh;
+  height: 33vh;
+}
+/* //商品一覧 */

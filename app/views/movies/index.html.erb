@@ -32,36 +32,40 @@
     <% end %>
   </div>
 </div>
-
-      <li class='list'>最近投稿された映画
+<div class="co">
+<div class="con">
+      <li class='lists'>最近投稿された映画
       <% @movies.first(5).each do |movie| %>
+      <div class="flow">
+        <div class="move">
         <%= link_to movie_path(movie.id) do %>
         <div class='movie-img-content'>
         <% if movie.image.present? %>
           <%= image_tag movie.image, class: "movie-img" %>
 <% end %>
-
         </div>
-        <div class='item-info'>
           <h3 class='item-name'>
             <%= movie.name %><% end %> <%= movie.category.name %> <%= movie.country.name %>
           </h3>
-        </div>
-      </li>
+        </div></div>
+      </li></div></div>
                           <% end %>
 
 
       <% if @evaluations.present? %>
-      <li class='list'>最近投稿された評価
+      最近投稿された評価
+      <li class='list'>
       <% @evaluations.each do |evaluation| %>
-        <%= link_to url: "/movies/#{evaluation.movie_id}/evaluations/#{evaluation.id}" do %>
+      <div class='item-img-content'>
+        <%= link_to url: "/movies/#{evaluation.movie_id}/evaluations/#{evaluation.id}", class:"image" do %>
         <% if evaluation.spoiler.present? %>
         <%= evaluation.movie.name %> <div class="spoiler">※ネタバレ注意⚠︎ </div>
         <% end %>
         <% if evaluation.title.present? %>
         <%= evaluation.title %> 評価点:<%= evaluation.point %>点
         <% end %>
-        <%= link_to evaluation.user.nickname, user_path(evaluation.user.id), class: "user-nickname" %>
+        <%= link_to evaluation.user.nickname, user_path(evaluation.user.id), class:"user-nickname" %>
+              </div>
       <% end %>
       <% end %>
       <% end %>
