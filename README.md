@@ -26,4 +26,4 @@ Ruby on railsを使った記述の復習を目指しました。
 Ruby 2.6.5,   
 Ruby on rails 6.0.3.4,   
 Javascript,  
-Visual Studio Code,
+Visual Studio Code
