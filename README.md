@@ -1,114 +1,29 @@
-# Table detail
-
-# Users
-
-|Column    |Type      |Options|
-|----------|----------| ---------|
-|email     |string    |Null: false, unique:true|
-|encrypted_password  |string    |Null: false|
-|nickname      |string    |Null: false|
-
-
-## Association
-- has_many :comments
-- has_one :tweet
-- has_one :follows
-- has_one :evaluation
-
-
-# Movie
-
-|Column    |Type      |Options|
-|----------|----------| ---------|
-|name     |string    |Null: false|
-|detail|text      |Null: false|
-|category_id   |integer      |Null: false|
-|release_date_id   |integer      ||
-|like      |integer ||
-|country_id      |integer ||
-|evaluation     |references   |foreign key:true|
-
-## Association
-- belongs_to :user
-- has_one :evaluations
-- has_one :comments
-- has_one :favorites
-- has_one :trivia
-
-# trivia
-|Column    |Type      |Options|
-|----------|----------| ---------|
-|title     |string    |Null: false|
-|text|text      |Null: false|
-|user |references   |foreign key:true|
-|movie |references   |foreign key:true|
-
-## Association
-- belongs_to :user
-- belongs_to :movie
-
-# Evaluation
-
-|Column    |Type      |Options|
-|----------|----------| ---------|
-|user     |references   |foreign key:true|
-|movie     |references   |foreign key:true|
-|title     |string    ||
-|content     |string    ||
-|point  |integer    ||Null: false|
-|spoiler     |boolean    |Null: false|
-
-
-
-## Association
-- belongs_to :user
-- belongs_to :movie
-
-
-# Favorite
-
-|Column    |Type      |Options|
-|----------|----------| ---------|
-|user |references   |foreign key:true|
-|movie      |references   |foreign key:true|
-
-## Association
-
-- belongs_to :user
-- belongs_to :movie
-
-
-# Follow
-
-|Column    |Type      |Options
-|----------|----------| ---------|
-|follower_id   |integer      |Null: false|
-|following_id   |integer      |Null: false|
-
-## Association
-
-- belongs_to :user
-
-# Comment
-
-|Column    |Type      |Options|
-|----------|----------| ---------|
-|user |references   |foreign key:true|
-|movie      |references   |foreign key:true|
-
-## Association
-
-- belongs_to :user
-- belongs_to :movie
-
-
-# Tweet
-
-| Column  | Type       Options  |
-| ------- | ---------- |-----------------------------|
-| content | string   | null: false        |
-| user    | references | null: false, foreign_keytrue|
-
-## Association
-
-- belongs_to :user
+## アプリケーション名	
+Cinemar
+## アプリケーション概要
+映画をメインにしたSNS形式のWEBアプリケーションです。
+## URL
+https://eigasns-32125.herokuapp.com/
+## 利用方法
+1.サイト上に評価や確認したい映画をユーザーが投稿します。
+2.映画に対して評価やお気に入りします。
+3.映画やユーザーと繋がって交流を深めてください。
+4.つぶやいたり、フォローしているユーザーとダイレクトメッセージを送ることができます。
+## 目指した課題解決
+Ruby on railsを使った記述の復習を目指しました。
+## 洗い出した要件
+・ユーザ登録機能 
+・映画ー投稿、詳細確認、編集、評価、検索、お気に入り機能
+・つぶやき機能
+・フォロー機能
+・ダイレクトメッセージ機能
+## 実装した機能についてのGIFと説明	
+①トップページ上について 
+②ユーザーについて
+③映画詳細ページについて
+![動作.gif](./動作.gif)
+## ローカルでの動作方法	 
+Ruby 2.6.5,   
+Ruby on rails 6.0.3.4,   
+Javascript,  
+Visual Studio Code,
